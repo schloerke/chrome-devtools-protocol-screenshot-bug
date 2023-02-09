@@ -10,6 +10,91 @@ Current believe: A resize event should **never be triggered** if the viewport is
 
 Even when the 1x1 window event is not produced, a resize event is still triggered when capturing a screenshot even though the viewport does not change size.
 
+<details>
+<summary>Expected behavior logs</summary>
+
+```
+Clip W x H: 400 x 450
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 400 x 250
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 400 x 650
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 200 x 450
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 200 x 250
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 200 x 650
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 600 x 450
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 600 x 250
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+
+Clip W x H: 600 x 650
+  Iteration: 0
+  Iteration: 1
+  Iteration: 2
+  Iteration: 3
+  Iteration: 4
+  Iteration: 5
+```
+
+</details>
+
+## Notes
+
+Originally found in R's `{chromote}` package: <https://github.com/rstudio/chromote/issues/96#issuecomment-1424377437>
+
+To use a more familiar library, I made a minimal reprex with `{puppeteer}`. `puppeteer` makes it's `Page.captureScreenshot` method here: <https://github.com/puppeteer/puppeteer/blob/abcc1756dd434dbe27d322aa9692b7fd9858a9ca/packages/puppeteer-core/src/common/Page.ts#L1430-L1439>
+
 ## Reprex
 
 ### `screenshot.html`
@@ -41,9 +126,9 @@ Steps:
 1. Init the browser
   * Launch browser and make a new page
   * Set the viewport size
-2. Visit `screenshot.html`
-3. Add handler so that all `console.log()` are displayed
-4. For each combination of `width` and `height`, repeat 5 times:
+1. Visit `screenshot.html`
+2. Add handler so that all `console.log()` are displayed
+3. For each combination of `width` and `height`, repeat 5 times:
   1. Wait 250ms to act like a human waiting to perform an action
     * If this step is removed, the bug is not surfaced!!
   2. Take screenshot with args `{clip: { x:0, y:0, width:clipWidth, height:clipHeight}, captureBeyondViewport:true}`
@@ -209,84 +294,3 @@ Clip W x H: 600 x 650
   Iteration: 5
      resize triggered! Current window size: 400 x 450
 ```
-
-#### Expected behavior
-
-<details>
-<summary>Expected behavior logs</summary>
-
-```
-Clip W x H: 400 x 450
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 400 x 250
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 400 x 650
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 200 x 450
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 200 x 250
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 200 x 650
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 600 x 450
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 600 x 250
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-
-Clip W x H: 600 x 650
-  Iteration: 0
-  Iteration: 1
-  Iteration: 2
-  Iteration: 3
-  Iteration: 4
-  Iteration: 5
-```
-
-</details>
