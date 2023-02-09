@@ -1,0 +1,12 @@
+<html>
+  <head></head>
+  <body style="border:1px solid black">
+      <h1>Does it trigger a resize?</h1>
+      <script>
+        window.addEventListener('resize', function(event) {
+          console.log('resize triggered! Current window size:', window.innerWidth, 'x', window.innerHeight)
+        }, true);
+      </script>
+    </div>
+  </body>
+</html>
