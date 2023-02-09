@@ -6,7 +6,7 @@ When taking a screenshot with `chromeDevToolsProtocol$Page$captureScreenshot(cap
 
 ## Expected behavior
 
-Current believe: A resize event should **never be triggered** if the viewport is not changing size.
+Current belief: A resize event should **never be triggered** if the viewport is not changing size.
 
 Even when the 1x1 window event is not produced, a resize event is still triggered when capturing a screenshot even though the viewport does not change size.
 
