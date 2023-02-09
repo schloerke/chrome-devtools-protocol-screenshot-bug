@@ -30,7 +30,7 @@ for (const clipWidth of [width, width - 200, width + 200]) {
     // Repeat a few times to trigger inconsistent reprex behavior
     for (let i in [1,2,3,4,5,6]) {
       // Add some wait, otherwise the bug is not surfaced
-      await new Promise(resolve => setTimeout(resolve, 250));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       console.log(`  Iteration: ${i}`);
       // Take screenshot

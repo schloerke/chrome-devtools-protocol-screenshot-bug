@@ -129,8 +129,9 @@ Steps:
 1. Visit `screenshot.html`
 2. Add handler so that all `console.log()` are displayed
 3. For each combination of `width` and `height`, repeat 5 times:
-  1. Wait 250ms to act like a human waiting to perform an action
+  1. Wait 100ms to act like a human waiting to perform an action
     * If this step is removed, the bug is not surfaced!!
+    * Wait times <= 50ms did not surface the bug
   2. Take screenshot with args `{clip: { x:0, y:0, width:clipWidth, height:clipHeight}, captureBeyondViewport:true}`
 
 
